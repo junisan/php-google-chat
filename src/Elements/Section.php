@@ -15,6 +15,12 @@ class Section implements GoogleChatElement
         return new static();
     }
 
+    public function addWidget(GoogleChatUIElement $widget): self
+    {
+        $this->widgets[] = $widget;
+        return $this;
+    }
+
     public function toJson(): array
     {
         $widgets = array_map(
