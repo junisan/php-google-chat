@@ -1,0 +1,38 @@
+{
+    "name": "junisan/php-google-chat",
+    "description": "Library to compose notifications for Google Chat in PHP",
+    "homepage": "https://github.com/junisan/php-google-chat",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Juan Nicolás",
+            "email": "juan.nicosan@gmail.com",
+            "homepage": "https://www.juannicolas.eu",
+            "role": "Developer"
+        }
+    ],
+    "type": "library",
+    "require": {
+        "php": ">=7.4",
+        "guzzlehttp/guzzle": "^7.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Junisan\\GoogleChat\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Junisan\\GoogleChat\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "platform": {
+            "php": "7.4"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test:coverage": "phpunit --coverage-text --coverage-clover=coverage.clover"
+    }
+}
