@@ -14,9 +14,9 @@ class Card implements GoogleChatElement
     private array $sections = [];
 
     public static function create(
-        ?string $title,
-        ?string $subTitle,
-        ?string $imageUrl,
+        ?string $title = null,
+        ?string $subTitle = null,
+        ?string $imageUrl = null,
         bool $square = true
     ): Card
     {
@@ -80,17 +80,28 @@ class Card implements GoogleChatElement
         return $this;
     }
 
+    /**
+     * @param Section[] $sections
+     */
+    public function addSections(...$sections): Card
+    {
+        $this->sections = array_merge($this->sections, $sections);
+        return $this;
+    }
+
     public function toJson(): array
     {
         $sections = array_map(fn(Section $section) => $section->toJson(), $this->sections);
 
+        $properties = [
+            "title" => $this->getTitle(),
+            "subtitle" => $this->getSubTitle(),
+            "imageUrl" => $this->getImageUrl(),
+            "imageStyle" => $this->isSquareImage() ? 'IMAGE' : 'AVATAR'
+        ];
+
         return [
-            "header" => [
-                "title" => $this->getTitle(),
-                "subtitle" => $this->getSubTitle(),
-                "imageUrl" => $this->getImageUrl(),
-                "imageStyle" => $this->isSquareImage() ? 'IMAGE' : 'AVATAR'
-            ],
+            "header" => array_filter($properties),
             "sections" => $sections
         ];
     }

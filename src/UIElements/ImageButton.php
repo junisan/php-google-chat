@@ -4,16 +4,16 @@ namespace Junisan\GoogleChat\UIElements;
 
 use Junisan\GoogleChat\Interfaces\GoogleChatUIButton;
 
-class TextButton implements GoogleChatUIButton
+class ImageButton implements GoogleChatUIButton
 {
     private string $link;
-    private string $text;
+    private string $imageUrl;
 
-    public static function create(string $link, string $text): self
+    public static function create(string $link, string $imageUrl): self
     {
         return (new static())
             ->setLink($link)
-            ->setText($text);
+            ->setImageUrl($imageUrl);
     }
 
     public function getLink(): string
@@ -27,22 +27,22 @@ class TextButton implements GoogleChatUIButton
         return $this;
     }
 
-    public function getText(): string
+    public function getImageUrl(): string
     {
-        return $this->text;
+        return $this->imageUrl;
     }
 
-    public function setText(string $text): self
+    public function setImageUrl(string $imageUrl): self
     {
-        $this->text = $text;
+        $this->imageUrl = $imageUrl;
         return $this;
     }
 
     public function toJson(): array
     {
         return [
-            "textButton" => [
-                "text" => $this->getText(),
+            "imageButton" => [
+                "iconUrl" => $this->getImageUrl(),
                 "onClick" => [
                     "openLink" => [
                         "url" => $this->getLink()

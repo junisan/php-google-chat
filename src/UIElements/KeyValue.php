@@ -2,6 +2,7 @@
 
 namespace Junisan\GoogleChat\UIElements;
 
+use Junisan\GoogleChat\Interfaces\GoogleChatUIButton;
 use Junisan\GoogleChat\Interfaces\GoogleChatUIElement;
 
 class KeyValue implements GoogleChatUIElement
@@ -11,22 +12,22 @@ class KeyValue implements GoogleChatUIElement
     private ?string $content;
     private bool $multiLine = false;
     private ?string $link;
-    private ?string $icon;
-    private ?TextButton $button;
+    private ?Icon $icon;
+    private ?GoogleChatUIButton $button;
 
     public static function create(
         ?string $topLabel = null,
-        ?string $bottomLabel = null,
         ?string $content = null,
+        ?string $bottomLabel = null,
         bool $multiLine = false,
         ?string $link = null,
-        ?string $ico = null,
-        ?TextButton $textButton = null
-    ) {
+        ?Icon $icon = null,
+        ?GoogleChatUIButton $textButton = null
+    ): KeyValue {
         return (new static())
             ->setTopLabel($topLabel)
-            ->setBottomLabel($bottomLabel)
             ->setContent($content)
+            ->setBottomLabel($bottomLabel)
             ->setMultiLine($multiLine)
             ->setLink($link)
             ->setIcon($ico)
@@ -99,24 +100,24 @@ class KeyValue implements GoogleChatUIElement
     }
 
 
-    public function getIcon(): ?string
+    public function getIcon(): ?Icon
     {
         return $this->icon;
     }
 
 
-    public function setIcon(?string $icon): KeyValue
+    public function setIcon(?Icon $icon): KeyValue
     {
         $this->icon = $icon;
         return $this;
     }
 
-    public function getButton(): ?TextButton
+    public function getButton(): ?GoogleChatUIButton
     {
         return $this->button;
     }
 
-    public function setButton(?TextButton $button): KeyValue
+    public function setButton(?GoogleChatUIButton $button): KeyValue
     {
         $this->button = $button;
         return $this;
@@ -124,20 +125,23 @@ class KeyValue implements GoogleChatUIElement
 
     public function toJson(): array
     {
-        return [
-            "keyValue" => [
-                "topLabel" => $this->topLabel,
-                "content" => $this->content,
-                "contentMultiline" => $this->isMultiLine() ? "true" : "false",
-                "bottomLabel" => $this->bottomLabel,
-                "onClick" => [
-                    "openLink" => [
-                        "url" => $this->link
-                    ]
-                ],
-                "icon" => $this->icon,
-                "button" => $this->button ? $this->button->toJson() : null
-            ]
+        $properties = [
+            "topLabel" => $this->topLabel,
+            "content" => $this->content,
+            "contentMultiline" => $this->isMultiLine(),
+            "bottomLabel" => $this->bottomLabel,
+            "icon" => $this->icon ? $this->icon->getIcon() : null,
+            "button" => $this->button ? $this->button->toJson() : null
         ];
+
+        if ($this->button) {
+            $properties['onClick'] = [
+                "openLink" => [
+                    "url" => $this->link
+                ]
+            ];
+        }
+
+        return ["keyValue" => array_filter($properties)];
     }
 }
