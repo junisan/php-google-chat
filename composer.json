@@ -16,6 +16,10 @@
         "php": ">=7.4",
         "guzzlehttp/guzzle": "^7.5"
     },
+    "require-dev": {
+        "ext-dom": "*",
+        "phpunit/phpunit": "^9.5"
+    },
     "autoload": {
         "psr-4": {
             "Junisan\\GoogleChat\\": "src/"
@@ -32,7 +36,7 @@
         }
     },
     "scripts": {
-        "test": "phpunit",
+        "test": "phpunit tests/",
         "test:coverage": "phpunit --coverage-text --coverage-clover=coverage.clover"
     }
 }
