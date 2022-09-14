@@ -1,6 +1,7 @@
 {
     "name": "junisan/php-google-chat",
     "description": "Library to compose notifications for Google Chat in PHP",
+    "version": "0.1",
     "homepage": "https://github.com/junisan/php-google-chat",
     "license": "MIT",
     "authors": [
