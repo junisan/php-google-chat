@@ -8,10 +8,16 @@ use PHPUnit\Framework\TestCase;
 
 class SectionTest extends TestCase
 {
-    public function test_create_section()
+    public function test_create_section_with_widgets()
     {
-        $section = Section::create();
+        $widget = $this->createMock(GoogleChatUIElement::class);
+        $widget2 = $this->createMock(GoogleChatUIElement::class);
+
+        $section = Section::create($widget, $widget2);
+        $render = $section->toJson();
+
         $this->assertInstanceOf(Section::class, $section);
+        $this->assertCount(2, $render['widgets']);
     }
 
     public function test_can_add_widget()
