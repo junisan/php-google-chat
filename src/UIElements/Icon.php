@@ -38,11 +38,14 @@ class Icon
 
     public static function isValidIcon(string $icon): bool
     {
+        $icon = strtoupper($icon);
         return in_array($icon, static::ICONS);
     }
 
     public function __construct(string $icon)
     {
+        $icon = strtoupper($icon);
+
         if (!static::isValidIcon($icon)) {
             throw new \LogicException('Invalid icon');
         }

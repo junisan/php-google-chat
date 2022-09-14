@@ -30,7 +30,7 @@ class KeyValue implements GoogleChatUIElement
             ->setBottomLabel($bottomLabel)
             ->setMultiLine($multiLine)
             ->setLink($link)
-            ->setIcon($ico)
+            ->setIcon($icon)
             ->setButton($textButton);
     }
 

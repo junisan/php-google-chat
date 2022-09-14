@@ -20,6 +20,15 @@ class Message implements GoogleChatMessage
         return $this;
     }
 
+    /**
+     * @param Card[] $cards
+     */
+    public function addCards(...$cards): self
+    {
+        $this->cards = array_merge($this->cards, $cards);
+        return $this;
+    }
+
     public function toJson(): array
     {
         $cards = array_map(fn(Card $card) => $card->toJson(), $this->cards);

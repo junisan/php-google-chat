@@ -2,11 +2,10 @@
 
 namespace Junisan\GoogleChat\UIElements;
 
-use Junisan\GoogleChat\Interfaces\GoogleChatUIButton;
+use Junisan\GoogleChat\Interfaces\AbstractButton;
 
-class ImageButton implements GoogleChatUIButton
+class ImageButton extends AbstractButton
 {
-    private string $link;
     private string $imageUrl;
 
     public static function create(string $link, string $imageUrl): self
@@ -14,17 +13,6 @@ class ImageButton implements GoogleChatUIButton
         return (new static())
             ->setLink($link)
             ->setImageUrl($imageUrl);
-    }
-
-    public function getLink(): string
-    {
-        return $this->link;
-    }
-
-    public function setLink(string $link): self
-    {
-        $this->link = $link;
-        return $this;
     }
 
     public function getImageUrl(): string
@@ -49,13 +37,6 @@ class ImageButton implements GoogleChatUIButton
                     ]
                 ]
             ]
-        ];
-    }
-
-    public function toWidgetJson(): array
-    {
-        return [
-            "buttons" => $this->toJson()
         ];
     }
 }

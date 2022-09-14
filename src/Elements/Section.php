@@ -9,11 +9,16 @@ use Junisan\GoogleChat\Interfaces\GoogleChatUIElement;
 class Section implements GoogleChatElement
 {
     /** @var GoogleChatUIElement[] */
-    public array $widgets = [];
+    protected array $widgets = [];
 
-    public static function create(): self
+    public static function create(...$widgets): self
     {
-        return new static();
+        $section =  new static();
+        foreach ($widgets as $widget) {
+            $section->addWidget($widget);
+        }
+
+        return $section;
     }
 
     public function addWidget(GoogleChatUIElement $widget): self
